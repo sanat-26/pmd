@@ -13,18 +13,7 @@ This repository implements a decoupled architecture capable of tracking user act
 
 Modern consumer applications require instant insight into how users navigate checkout paths. Relying on batch processing or synchronous database logs introduces latency and performance bottlenecks. This project solves that by utilizing an **Event-Driven Telemetry Blueprint**:
 
-```text
-[ UI Trigger ] ──(User Actions)──> [ Spring Boot Producer ]
-                                              │
-                                   (Kafka Event Stream)
-                                              ▼
-                                     [ Kafka Cluster (VM) ]
-                                              │
-                                      (Event Ingestion)
-                                              ▼
-[ Grafana Dashboard ] <──(PromQL)── [ Prometheus ] <──(Scrape)── [ Consumer Service ]
-
-```
+<img width="1050" height="638" alt="Untitled" src="https://github.com/user-attachments/assets/5ab56cb5-d3dc-4f61-b6c2-d2bb73404fda" />
 
 ### Component Breakdown
 
