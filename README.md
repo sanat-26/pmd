@@ -1,7 +1,7 @@
 # pmd : A Project Manager's Dashboard
 ---
 
-# Event-Driven Telemetry & Real-Time Funnel Analytics Pipeline
+## Event-Driven Telemetry & Real-Time Funnel Analytics Pipeline
 
 A high-throughput event-driven telemetry pipeline designed to capture, stream, process, and visualize user behavioral analytics and checkout funnel drop-off rates in real-time.
 
