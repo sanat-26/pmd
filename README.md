@@ -48,27 +48,27 @@ Modern consumer applications require instant insight into how users navigate che
 
 The conversion funnel monitors prospective users across critical registration boundaries.
 
-![Streamclass Landing Page - Core Telemetry Pipeline Entrypoint]<img width="1920" height="1200" alt="Screenshot (105)" src="https://github.com/user-attachments/assets/125f84b1-5f86-4851-986d-2fd6460beaf6" />
+Streamclass Landing Page - Core Telemetry Pipeline Entrypoint<img width="1920" height="1200" alt="Screenshot (103)" src="https://github.com/user-attachments/assets/619a60f3-2045-4774-aba4-1eb19f7a666e" />
 
-![Funnel Step 1 - User Account Profiling and Information Submission]<img width="1920" height="1200" alt="Screenshot (104)" src="https://github.com/user-attachments/assets/b976fa06-ac77-4a41-a188-402addb79ef0" />
+Funnel Step 1 - User Account Profiling and Information Submission<img width="1920" height="1200" alt="Screenshot (104)" src="https://github.com/user-attachments/assets/b976fa06-ac77-4a41-a188-402addb79ef0" />
 
-![Funnel Step 2 - Transaction Checkout and Conversion Completion]<img width="1920" height="1200" alt="Screenshot (103)" src="https://github.com/user-attachments/assets/619a60f3-2045-4774-aba4-1eb19f7a666e" />
+Funnel Step 2 - Transaction Checkout and Conversion Completion<img width="1920" height="1200" alt="Screenshot (105)" src="https://github.com/user-attachments/assets/125f84b1-5f86-4851-986d-2fd6460beaf6" />
 
 ### 2. Monitoring & Metrics Scraping
 
 Prometheus monitors target health and stores structural telemetry counters containing labels for each individual stage of the user journey.
 
-![Prometheus Targets Status Showing Connected Active Scraping Endpoints]<img width="1920" height="1200" alt="Screenshot (107)" src="https://github.com/user-attachments/assets/aafa8e1f-35cd-486f-8abd-6b17ff3c6f42" />
+Prometheus Targets Status Showing Connected Active Scraping Endpoints<img width="1920" height="1200" alt="Screenshot (107)" src="https://github.com/user-attachments/assets/aafa8e1f-35cd-486f-8abd-6b17ff3c6f42" />
 
-![Prometheus Multi-series Stacked Area Graph Charting Total Checkout Funnel Events]<img width="1920" height="1200" alt="Screenshot (110)" src="https://github.com/user-attachments/assets/5ee229eb-ce1a-4b77-a9af-fc46d833366d" />
+Prometheus Multi-series Stacked Area Graph Charting Total Checkout Funnel Events<img width="1920" height="1200" alt="Screenshot (110)" src="https://github.com/user-attachments/assets/5ee229eb-ce1a-4b77-a9af-fc46d833366d" />
 
-![Prometheus Unstacked Line Graphs Highlighting Incremental Telemetry Growth]<img width="1920" height="1200" alt="Screenshot (111)" src="https://github.com/user-attachments/assets/9a246075-e646-431b-bc56-3e0d40bd2f6a" />
+Prometheus Unstacked Line Graphs Highlighting Incremental Telemetry Growth<img width="1920" height="1200" alt="Screenshot (111)" src="https://github.com/user-attachments/assets/9a246075-e646-431b-bc56-3e0d40bd2f6a" />
 
 ### 3. Real-Time Insights Dashboard
 
 Grafana visualizes volumetric user ingestion patterns along with a live calculation of the funnel drop-off rate.
 
-![Grafana Live Dashboard Tracking User Action Frequencies and Conversion Drop-off Percentages]<img width="1920" height="1200" alt="Screenshot (113)" src="https://github.com/user-attachments/assets/1f98bce2-22af-4b1e-bec6-d024e1631114" />
+Grafana Live Dashboard Tracking User Action Frequencies and Conversion Drop-off Percentages<img width="1920" height="1200" alt="Screenshot (113)" src="https://github.com/user-attachments/assets/1f98bce2-22af-4b1e-bec6-d024e1631114" />
 
 ---
 
@@ -85,6 +85,16 @@ The application exposes a custom multidimensional counter metric called `checkou
 The system tracks drop-offs between critical operational thresholds (e.g., users who provided information but abandoned the final transaction stage) using the following formula:
 
 $$\text{Drop-Off Rate (\%)} = \left( 1 - \frac{\text{BUY\_NOW\_CLICKED}}{\text{USER\_INFO\_SUBMITTED}} \right) \times 100$$
+
+
+### Drop-Off Rate Calculation
+
+The system tracks drop-offs between critical operational thresholds (e.g., users who provided information but abandoned the final transaction stage) using the following formula:
+
+$$\text{Drop-Off Rate (\%)} = \left( 1 - \frac{\text{BUY\_NOW\_CLICKED}}{\text{USER\_INFO\_SUBMITTED}} \right) \times 100$$
+
+This allows product stakeholders to recognize drop-off anomalies immediately as code deployments or system changes go live.
+
 
 This allows product stakeholders to recognize drop-off anomalies immediately as code deployments or system changes go live.
 
