@@ -84,17 +84,12 @@ The application exposes a custom multidimensional counter metric called `checkou
 
 The system tracks drop-offs between critical operational thresholds (e.g., users who provided information but abandoned the final transaction stage) using the following formula:
 
-$$\text{Drop-Off Rate (\%)} = \left( 1 - \frac{\text{BUY\_NOW\_CLICKED}}{\text{USER\_INFO\_SUBMITTED}} \right) \times 100$$
-
-
 ### Drop-Off Rate Calculation
 
-The system tracks drop-offs between critical operational thresholds (e.g., users who provided information but abandoned the final transaction stage) using the following formula:
+The system tracks drop-offs using this formula:
 
-$$\text{Drop-Off Rate (\%)} = \left( 1 - \frac{\text{BUY\_NOW\_CLICKED}}{\text{USER\_INFO\_SUBMITTED}} \right) \times 100$$
-
-This allows product stakeholders to recognize drop-off anomalies immediately as code deployments or system changes go live.
-
+| Drop-Off Rate (%) | = | ( 1 - (BUY_NOW_CLICKED / USER_INFO_SUBMITTED) ) * 100 |
+| :--- | :--- | :--- |
 
 This allows product stakeholders to recognize drop-off anomalies immediately as code deployments or system changes go live.
 
