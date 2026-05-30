@@ -1,16 +1,15 @@
-# pmd
-A Project Manager's Dashboard
+# pmd : A Project Manager's Dashboard
 ---
 
 # Event-Driven Telemetry & Real-Time Funnel Analytics Pipeline
 
-An enterprise-grade, high-throughput event-driven telemetry pipeline designed to capture, stream, process, and visualize user behavioral analytics and checkout funnel drop-off rates in real-time.
+A high-throughput event-driven telemetry pipeline designed to capture, stream, process, and visualize user behavioral analytics and checkout funnel drop-off rates in real-time.
 
 This repository implements a decoupled architecture capable of tracking user actions seamlessly as they progress through multi-step conversion funnels, ensuring business visibility with minimal performance overhead on client-facing applications.
 
 ---
 
-## 🚀 Architectural Overview
+## Architectural Overview
 
 Modern consumer applications require instant insight into how users navigate checkout paths. Relying on batch processing or synchronous database logs introduces latency and performance bottlenecks. This project solves that by utilizing an **Event-Driven Telemetry Blueprint**:
 
@@ -30,9 +29,9 @@ Modern consumer applications require instant insight into how users navigate che
 ### Component Breakdown
 
 1. **UI Trigger (Client App):** A realistic mock storefront platform ("Streamclass") tracking a 3-step enrollment funnel:
-* **Stage 1:** Click `ENROLL_NOW_CLICKED` (Intent to Buy).
-* **Stage 2:** Submit form data `USER_INFO_SUBMITTED` (Account Creation).
-* **Stage 3:** Click `BUY_NOW_CLICKED` (Financial Conversion).
+* **Stage 1:** Click `ENROLL_NOW_CLICKED`
+* **Stage 2:** Submit form data `USER_INFO_SUBMITTED`
+* **Stage 3:** Click `BUY_NOW_CLICKED`
 
 
 2. **Spring Boot Producer:** Receives synchronous HTTP triggers from the client layer, translates them into structured telemetry event payloads, and asynchronously dispatches them to an Apache Kafka broker.
@@ -43,33 +42,33 @@ Modern consumer applications require instant insight into how users navigate che
 
 ---
 
-## 📊 Visual Walkthrough
+## Visual Walkthrough
 
 ### 1. User Conversion Funnel (UI)
 
 The conversion funnel monitors prospective users across critical registration boundaries.
 
-![Streamclass Landing Page - Core Telemetry Pipeline Entrypoint]
+![Streamclass Landing Page - Core Telemetry Pipeline Entrypoint]<img width="1920" height="1200" alt="Screenshot (105)" src="https://github.com/user-attachments/assets/125f84b1-5f86-4851-986d-2fd6460beaf6" />
 
-![Funnel Step 1 - User Account Profiling and Information Submission]
+![Funnel Step 1 - User Account Profiling and Information Submission]<img width="1920" height="1200" alt="Screenshot (104)" src="https://github.com/user-attachments/assets/b976fa06-ac77-4a41-a188-402addb79ef0" />
 
-![Funnel Step 2 - Transaction Checkout and Conversion Completion]
+![Funnel Step 2 - Transaction Checkout and Conversion Completion]<img width="1920" height="1200" alt="Screenshot (103)" src="https://github.com/user-attachments/assets/619a60f3-2045-4774-aba4-1eb19f7a666e" />
 
 ### 2. Monitoring & Metrics Scraping
 
 Prometheus monitors target health and stores structural telemetry counters containing labels for each individual stage of the user journey.
 
-![Prometheus Targets Status Showing Connected Active Scraping Endpoints]
+![Prometheus Targets Status Showing Connected Active Scraping Endpoints]<img width="1920" height="1200" alt="Screenshot (107)" src="https://github.com/user-attachments/assets/aafa8e1f-35cd-486f-8abd-6b17ff3c6f42" />
 
-![Prometheus Multi-series Stacked Area Graph Charting Total Checkout Funnel Events]
+![Prometheus Multi-series Stacked Area Graph Charting Total Checkout Funnel Events]<img width="1920" height="1200" alt="Screenshot (110)" src="https://github.com/user-attachments/assets/5ee229eb-ce1a-4b77-a9af-fc46d833366d" />
 
-![Prometheus Unstacked Line Graphs Highlighting Incremental Telemetry Growth]
+![Prometheus Unstacked Line Graphs Highlighting Incremental Telemetry Growth]<img width="1920" height="1200" alt="Screenshot (111)" src="https://github.com/user-attachments/assets/9a246075-e646-431b-bc56-3e0d40bd2f6a" />
 
 ### 3. Real-Time Insights Dashboard
 
 Grafana visualizes volumetric user ingestion patterns along with a live calculation of the funnel drop-off rate.
 
-![Grafana Live Dashboard Tracking User Action Frequencies and Conversion Drop-off Percentages]
+![Grafana Live Dashboard Tracking User Action Frequencies and Conversion Drop-off Percentages]<img width="1920" height="1200" alt="Screenshot (113)" src="https://github.com/user-attachments/assets/1f98bce2-22af-4b1e-bec6-d024e1631114" />
 
 ---
 
@@ -117,15 +116,19 @@ wget https://archive.apache.org/dist/kafka/3.5.1/kafka_2.13-3.5.1.tgz
 tar -xzf kafka_2.13-3.5.1.tgz
 cd kafka_2.13-3.5.1
 
-# Start Zookeeper (Background Service)
-bin/zookeeper-server-start.sh -daemon config/zookeeper.properties
+# Start Kafka (Background Service)
+su -l kafka
+cd kafka
 
 # Configure Kafka listener to bind to your VM external/internal IP address
 # Edit config/server.properties and update: listeners=PLAINTEXT://0.0.0.0:9092
 
-# Start Apache Kafka Broker
-bin/kafka-server-start.sh -daemon config/server.properties
+# Start KRaft
+bin/kafka-storage.sh random-uuid
+bin/kafka-storage.sh format -t <ID_GENERATED> -c config/server.properties --standalone
 
+# Start Apache Kafka Broker
+bin/kafka-server-start.sh config/server.properties
 ```
 
 #### B. Run Prometheus Server
@@ -137,7 +140,6 @@ Download Prometheus and configure it to target your Consumer application:
 wget https://github.com/prometheus/prometheus/releases/download/v2.45.0/prometheus-2.45.0.linux-amd64.tar.gz
 tar -xzf prometheus-2.45.0.linux-amd64.tar.gz
 cd prometheus-2.45.0.linux-amd64
-
 ```
 
 Edit your configuration file (`prometheus.yml`) to add your Consumer endpoint under the scrape configurations:
@@ -153,14 +155,12 @@ scrape_configs:
     scrape_interval: 2s
     static_configs:
       - targets: ['<YOUR_LOCAL_CONSUMER_IP>:<CONSUMER_PORT>']
-
 ```
 
 Start the Prometheus service:
 
 ```bash
-./prometheus --config.file=prometheus.yml
-
+sudo systemctl start prometheus
 ```
 
 #### C. Run Grafana Server
@@ -181,7 +181,6 @@ sudo apt-get install grafana
 sudo systemctl daemon-reload
 sudo systemctl start grafana-server
 sudo systemctl enable grafana-server
-
 ```
 
 ---
@@ -261,7 +260,6 @@ mvn spring-boot:run
 ```promql
 # Query to extract funnel counts
 checkout_funnel_events_total
-
 ```
 
 
